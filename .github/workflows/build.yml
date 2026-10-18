@@ -19,16 +19,20 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+
+      - name: Add Android Platform if Missing
+        run: |
+          npx cap add android || true
+          npx cap sync android
 
       - name: Setup Java JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
-
-      - name: Sync Capacitor
-        run: npx cap sync android
 
       - name: Build Android APK
         run: |
