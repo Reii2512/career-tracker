@@ -50,7 +50,7 @@ btnGoogleLogin.addEventListener('click', async () => {
     try {
         const provider = new firebase.auth.GoogleAuthProvider();
         provider.setCustomParameters({ prompt: 'select_account' });
-        await auth.signInWithRedirect(provider);
+        await auth.signInWithPopup(provider);
     } catch (error) {
         alert("Gagal memulai login: " + error.message);
     }
