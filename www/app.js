@@ -1,22 +1,27 @@
 import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
 
-// Fungsi login Google Native
-async function loginWithGoogle() {
+async function handleGoogleLogin() {
   try {
     const result = await FirebaseAuthentication.signInWithGoogle();
-    console.log("Login sukses!", result.user);
-    // Masuk ke halaman utama / dashboard
-    window.location.href = "dashboard.html"; // sesuaikan dengan alur app kamu
+    console.log("Login berhasil:", result.user);
+    alert("Login berhasil! Selamat datang " + (result.user.displayName || "User"));
+    // Arahkan ke halaman utama/dashboard kamu jika ada
   } catch (error) {
-    console.error("Gagal login:", error);
-    alert("Gagal login: " + error.message);
+    console.error("Login gagal:", error);
+    alert("Gagal login: " + (error.message || JSON.stringify(error)));
   }
 }
 
-// Pasang event listener ke tombol login
 document.addEventListener("DOMContentLoaded", () => {
-  const loginBtn = document.getElementById("google-login-btn") || document.querySelector("button");
-  if (loginBtn) {
-    loginBtn.addEventListener("click", loginWithGoogle);
-  }
+  // Cari semua elemen tombol atau teks login
+  const loginButtons = document.querySelectorAll("button, .btn, [id*='google'], [class*='google']");
+  
+  loginButtons.forEach((btn) => {
+    if (btn.innerText.includes("Masuk dengan Google") || btn.id.includes("google")) {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        handleGoogleLogin();
+      });
+    }
+  });
 });
