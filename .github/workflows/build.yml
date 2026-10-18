@@ -35,9 +35,11 @@ jobs:
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug --stacktrace
+          cp app/build/outputs/apk/debug/app-debug.apk ../J_b_Hunt_Tracker.apk
 
-      - name: Upload APK Artifact
+      - name: Upload Single APK File
         uses: actions/upload-artifact@v4
         with:
-          name: Career-Tracker-APK
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          name: J_b_Hunt_Tracker.apk
+          path: J_b_Hunt_Tracker.apk
+          compression-level: 0
