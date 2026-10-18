@@ -1,27 +1,46 @@
-import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
-
-async function handleGoogleLogin() {
-  try {
-    const result = await FirebaseAuthentication.signInWithGoogle();
-    console.log("Login berhasil:", result.user);
-    alert("Login berhasil! Selamat datang " + (result.user.displayName || "User"));
-    // Arahkan ke halaman utama/dashboard kamu jika ada
-  } catch (error) {
-    console.error("Login gagal:", error);
-    alert("Gagal login: " + (error.message || JSON.stringify(error)));
-  }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-  // Cari semua elemen tombol atau teks login
-  const loginButtons = document.querySelectorAll("button, .btn, [id*='google'], [class*='google']");
-  
-  loginButtons.forEach((btn) => {
-    if (btn.innerText.includes("Masuk dengan Google") || btn.id.includes("google")) {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        handleGoogleLogin();
-      });
+  // Matikan seleksi teks pada tombol login
+  const style = document.createElement('style');
+  style.innerHTML = `
+    button, .btn { -webkit-user-select: none; user-select: none; }
+  `;
+  document.head.appendChild(style);
+
+  // Cari tombol login Google
+  const buttons = document.querySelectorAll("button, div, a");
+  let targetBtn = null;
+
+  buttons.forEach((el) => {
+    if (el.innerText && el.innerText.includes("Masuk dengan Google")) {
+      targetBtn = el;
     }
   });
+
+  if (!targetBtn) {
+    targetBtn = document.querySelector("button");
+  }
+
+  if (targetBtn) {
+    targetBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      try {
+        // Panggil Plugin Native via Window Capacitor Global
+        if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.FirebaseAuthentication) {
+          const res = await window.Capacitor.Plugins.FirebaseAuthentication.signInWithGoogle();
+          alert("Login Berhasil! Selamat datang " + (res.user ? res.user.displayName : "User"));
+        } else if (window.FirebaseAuthentication) {
+          const res = await window.FirebaseAuthentication.signInWithGoogle();
+          alert("Login Berhasil!");
+        } else {
+          // Fallback jika run di browser biasa
+          alert("Native Auth Plugin belum terdeteksi di WebView. Memproses via Firebase Web...");
+        }
+      } catch (err) {
+        console.error("Auth error:", err);
+        alert("Gagal Login: " + (err.message || JSON.stringify(err)));
+      }
+    });
+  }
 });
