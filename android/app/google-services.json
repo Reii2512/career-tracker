@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "999890485754",
+    "project_id": "job-hunting-tracker25",
+    "storage_bucket": "job-hunting-tracker25.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:999890485754:android:77cc350c0c0607fdefa443",
+        "android_client_info": {
+          "package_name": "com.careertracker.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "999890485754-e661lpdiqm1hot85tku0e5046r97aq7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgkDREL_Jx1Ogkuoy4KJFul_UxMLS1ULU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "999890485754-e661lpdiqm1hot85tku0e5046r97aq7o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
