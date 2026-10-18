@@ -16,10 +16,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: '22'
 
       - name: Install dependencies
         run: npm ci || npm install
@@ -33,14 +33,8 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug
 
-      - name: Print SHA1 Key Fingerprint
-        run: |
-          echo "=========================================="
-          keytool -list -printcert -jarfile android/app/build/outputs/apk/debug/app-debug.apk | grep "SHA1:"
-          echo "=========================================="
-
       - name: Upload Single APK File
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug
+          name: J_b_Hunt_Tracker
           path: android/app/build/outputs/apk/debug/app-debug.apk
