@@ -14,6 +14,30 @@
       },
       "oauth_client": [
         {
+          "client_id": "999890485754-4sm6gpc0rfq0d43l09t0vs680vu8q8dl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.careertracker.app",
+            "certificate_hash": "5a80b4f6c00550526763709318ce57c2e6c35975"
+          }
+        },
+        {
+          "client_id": "999890485754-7jt1n0pk55cajk3ng4k7qg76gpf9vudb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.careertracker.app",
+            "certificate_hash": "c975a86108be2898b4732700df11586529cd7ab3"
+          }
+        },
+        {
+          "client_id": "999890485754-unrfoif55du1cfnd828r3b67gv3t1uc3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.careertracker.app",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "999890485754-e661lpdiqm1hot85tku0e5046r97aq7o.apps.googleusercontent.com",
           "client_type": 3
         }
