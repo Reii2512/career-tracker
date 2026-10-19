@@ -44,3 +44,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+
+// Bypass Google Auth - Mode Full Offline
+function handleAuth() {
+    localStorage.setItem("user_logged_in", "true");
+    localStorage.setItem("user_email", "lokal@careertracker.app");
+    showDashboard(); // atau fungsi yang menampilkan halaman utama app kamu
+}
