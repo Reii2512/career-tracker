@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Hunting Tracker</title>
+    <!-- FontAwesome Icon CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Firebase SDK (Compat Version) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <!-- Halaman Login (Tampil jika belum login) -->
+    <div id="loginScreen" class="login-wrapper">
+        <div class="login-card">
+            <i class="fa-solid fa-briefcase login-icon"></i>
+            <h2>J*b Hunt Tracker</h2>
+            <p>Pantau & kelola proses lamaran kerjamu secara tersinkronisasi di cloud.</p>
+            <button id="btnGoogleLogin" class="btn-google">
+                <i class="fa-brands fa-google"></i> Masuk dengan Google
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Dashboard App (Tampil setelah login) -->
+    <div id="appContainer" class="app-container" style="display: none;">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="logo">
+                <i class="fa-solid fa-briefcase"></i>
+                <div>
+                    <h1>J*b Hunt Tracker</h1>
+                    <p id="userDisplayName">User Account</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="btnLogout" class="btn-icon" title="Logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+            </div>
+        </header>
+
+        <!-- Stats Counter Dashboard -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <i class="fa-solid fa-paper-plane text-blue"></i>
+                <div class="stat-info">
+                    <span id="statApplied">0</span>
+                    <small>Applied</small>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-comments text-amber"></i>
+                <div class="stat-info">
+                    <span id="statInterview">0</span>
+                    <small>Interview</small>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-circle-check text-green"></i>
+                <div class="stat-info">
+                    <span id="statOffered">0</span>
+                    <small>Offered</small>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-circle-xmark text-red"></i>
+                <div class="stat-info">
+                    <span id="statRejected">0</span>
+                    <small>Rejected</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Grafik Status Lamaran -->
+        <section class="chart-section">
+            <div class="section-title">
+                <i class="fa-solid fa-chart-pie"></i> Grafik Ringkasan
+            </div>
+            <div class="chart-container">
+                <canvas id="statusChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Form Tambah/Edit Lamaran -->
+        <section class="form-section">
+            <div class="section-title">
+                <i class="fa-solid fa-plus"></i> Tambah Lamaran Baru
+            </div>
+            <form id="jobForm">
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>Nama Perusahaan</label>
+                        <input type="text" id="company" placeholder="Contoh: PT Pertamina" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Posisi / Jabatan</label>
+                        <input type="text" id="position" placeholder="Contoh: Network Engineer" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>Sistem Kerja</label>
+                        <select id="workType">
+                            <option value="Onsite">🏢 Onsite</option>
+                            <option value="Hybrid">🏠🏢 Hybrid</option>
+                            <option value="Remote">🌐 Remote</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Jalur Lamaran</label>
+                        <select id="platform">
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="JobStreet">JobStreet</option>
+                            <option value="Email">Email HR</option>
+                            <option value="Website">Website Karir</option>
+                            <option value="Koneksi">Koneksi / Referensi</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>Tanggal Apply</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Status Lamaran</label>
+                        <select id="status">
+                            <option value="Applied">Applied (Terkirim)</option>
+                            <option value="Interview">Interview</option>
+                            <option value="Offered">Offered (Diterima)</option>
+                            <option value="Rejected">Rejected (Ditolak)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Catatan / Link Lowongan (Opsional)</label>
+                    <input type="text" id="notes" placeholder="Kontak HR / Info loker / Ekspektasi gaji">
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i class="fa-solid fa-paper-plane"></i> Simpan Lamaran
+                </button>
+            </form>
+        </section>
+
+        <!-- Filter & Search Bar -->
+        <section class="controls-section">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Cari nama perusahaan atau posisi...">
+            </div>
+            <select id="filterStatus">
+                <option value="All">Semua Status</option>
+                <option value="Applied">Applied</option>
+                <option value="Interview">Interview</option>
+                <option value="Offered">Offered</option>
+                <option value="Rejected">Rejected</option>
+            </select>
+        </section>
+
+        <!-- Daftar Lamaran List -->
+        <section class="job-list-section">
+            <div id="jobList" class="job-list"></div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
