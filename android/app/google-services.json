@@ -30,6 +30,14 @@
           }
         },
         {
+          "client_id": "999890485754-iae7js9p2qojc7n9t7378mbk27t1hmbj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.careertracker.app",
+            "certificate_hash": "17ffc29fe94ffa4025eb26c95a6f4f2c0ef67bdb"
+          }
+        },
+        {
           "client_id": "999890485754-unrfoif55du1cfnd828r3b67gv3t1uc3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
