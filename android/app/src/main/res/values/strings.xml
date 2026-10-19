@@ -1,7 +1,8 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">J*b Hunt Tracker</string>
-    <string name="title_activity_main">J*b Hunt Tracker</string>
+    <string name="app_name">Job Hunting Tracker</string>
+    <string name="title_activity_main">Job Hunting Tracker</string>
     <string name="package_name">com.careertracker.app</string>
     <string name="custom_url_scheme">com.careertracker.app</string>
+    <string name="default_web_client_id">999890485754-e661lpdiqm1hot85tku0e5046r97aq7o.apps.googleusercontent.com</string>
 </resources>
