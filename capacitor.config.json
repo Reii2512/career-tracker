@@ -2,9 +2,13 @@
   "appId": "com.careertracker.app",
   "appName": "Job Hunting Tracker",
   "webDir": "www",
+  "server": {
+    "androidScheme": "https",
+    "hostname": "com.careertracker.app"
+  },
   "plugins": {
     "FirebaseAuthentication": {
-      "skipNativeAuth": false,
+      "skipNativeAuth": true,
       "providers": ["google.com"]
     }
   }
