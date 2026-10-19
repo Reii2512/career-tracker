@@ -28,10 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         // Panggil Plugin Native via Window Capacitor Global
         if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.FirebaseAuthentication) {
-          const res = await window.Capacitor.Plugins.FirebaseAuthentication.signInWithGoogle();
+          const res = await window.Capacitor.Plugins.FirebaseAuthentication.signInWithGoogle({ webClientId: "999890485754-e661lpdiqm1hot85tku0e5046r97aq7o.apps.googleusercontent.com" });
           alert("Login Berhasil! Selamat datang " + (res.user ? res.user.displayName : "User"));
         } else if (window.FirebaseAuthentication) {
-          const res = await window.FirebaseAuthentication.signInWithGoogle();
+          const res = await window.FirebaseAuthentication.signInWithGoogle({ webClientId: "999890485754-e661lpdiqm1hot85tku0e5046r97aq7o.apps.googleusercontent.com" });
           alert("Login Berhasil!");
         } else {
           // Fallback jika run di browser biasa

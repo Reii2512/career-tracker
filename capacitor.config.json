@@ -1,12 +1,11 @@
 {
   "appId": "com.careertracker.app",
-  "appName": "J*b Hunt Tracker",
+  "appName": "Job Hunting Tracker",
   "webDir": "www",
   "plugins": {
     "FirebaseAuthentication": {
       "skipNativeAuth": false,
-      "providers": ["google.com"],
-      "googleClientId": "999890485754-e661lpdiqm1hot85tku0e5046r97aq7o.apps.googleusercontent.com"
+      "providers": ["google.com"]
     }
   }
 }
